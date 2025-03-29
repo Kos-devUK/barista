@@ -2,8 +2,7 @@ import {Box, Button, Container, Flex,  } from "@chakra-ui/react";
 import { useColorModeValue, useColorMode } from "./ui/color-mode";
 import {IoMoon} from "react-icons/io5";
 import { LuSun } from "react-icons/lu";
-import CreateUserModal from "./CreateUserModal";
-
+import CreateRecipe from "./CreateRecipe";
 
 const Navbar = () => {
     const {colorMode, toggleColorMode} = useColorMode();
@@ -23,8 +22,7 @@ const Navbar = () => {
                 <Flex
                 alignItems={"center"}
                 justifyContent={"center"}
-                gap={3}
-                display={{base:"none", sm:"flex"}}                    
+                gap={3}                    
                 >
                 <img src="/man.png" alt="man" width={50} height={50}/>
                 </Flex>
@@ -38,11 +36,11 @@ const Navbar = () => {
                 <Button onClick={toggleColorMode}>
                     {colorMode === "light" ? <IoMoon /> : <LuSun size={20} />}
                 </Button>
-                <CreateUserModal />
+                <CreateRecipe />
             </Flex>
         </Box>
 
-    </Container>;
+    </Container>
 };
 
 export default Navbar;
