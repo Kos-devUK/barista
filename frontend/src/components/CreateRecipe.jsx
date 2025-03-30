@@ -11,7 +11,7 @@ const CreateRecipe = () => {
         <Button   
             variant="unstyled"
             bg="transparent"
-            backgroundImage="url('/public/brewing.png')"
+            backgroundImage="url('/brewing.png')"
             backgroundSize="cover"
             backgroundRepeat="no-repeat"
             width="50px"
@@ -29,20 +29,20 @@ const CreateRecipe = () => {
             <Dialog.Body pb="4">
               <Stack gap="4">
                 <Field.Root>
-                  <Field.Label>Name</Field.Label>
-                  <Input placeholder="Name" />
+                  <Field.Label>Coffee name</Field.Label>
+                  <Input placeholder="coffee name" />
                 </Field.Root>
                 <Field.Root>
                   <Field.Label>Coffee gr.</Field.Label>
-                  <Input ref={ref} placeholder="Coffee gr." />
+                  <Input ref={ref} placeholder="☕  coffee gr." />
                 </Field.Root>
                 <Field.Root>
                   <Field.Label>Water gr.</Field.Label>
-                  <Input ref={ref} placeholder="Water gr." />
+                  <Input ref={ref} placeholder="💧 water gr." />
                 </Field.Root>
                 <Field.Root>
                   <Field.Label>Notes</Field.Label>
-                  <Input ref={ref} placeholder="Notes" />
+                  <Input ref={ref} placeholder="📝 notes" />
                 </Field.Root>
               </Stack>
             </Dialog.Body>

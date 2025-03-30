@@ -1,12 +1,15 @@
 import { Stack, Container,Text} from '@chakra-ui/react';
 import Navbar from './components/Navbar';
-import UserGrid from './components/UserGrid';
+import RecipeGrid from './components/RecipeGrid';
+
 
 function App() {
 
     return (
       <Stack minH={"100vh"}>
+        
         <Navbar />
+        
         <Container maxW={"1200px"} my={4} alignItems={"center"}>
           <Text 
             fontSize={{base:"3xl", md:"50"}}
@@ -14,10 +17,10 @@ function App() {
             letterSpacing={'2px'}
             textAlign={"center"}
             mb={8}>
-
             <Text as={'span'} bgColor={'red.300'} bgClip={'text'}>Hey U Hipsta Barista</Text>
           </Text>
-          <UserGrid />
+    
+          <RecipeGrid />
         </Container>
       </Stack>
   );
