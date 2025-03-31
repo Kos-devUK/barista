@@ -19,7 +19,7 @@ function App() {
             mb={8}>
             <Text as={'span'} bgColor={'red.300'} bgClip={'text'}>Hey U Hipsta Barista</Text>
           </Text>
-    
+          
           <RecipeGrid />
         </Container>
       </Stack>

@@ -1,6 +1,7 @@
 import { Grid } from "@chakra-ui/react";
 import { RECIPES } from "./libraryTest/library";
 import RecipeCard from "./RecipeCard";
+import EditRecipe from "./EditRecipe";
 
 
 
@@ -15,9 +16,9 @@ const RecipeGrid = () => {
       }}
       gap={4}
     >
-      {RECIPES.map((recipe) => (
+    {RECIPES.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
-      ))}
+      ))}  
     </Grid>
   );
 };
