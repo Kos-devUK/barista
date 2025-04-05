@@ -1,25 +1,66 @@
-import { Grid } from "@chakra-ui/react";
-import { RECIPES } from "./libraryTest/library";
+import { Flex, Grid, Spinner, Text } from "@chakra-ui/react";
 import RecipeCard from "./RecipeCard";
-import EditRecipe from "./EditRecipe";
+import { useEffect, useState } from "react";
+import { BASE_URL } from "@/App";
+// import { RECIPES } from "./libraryTest/library"; change code in line 44 
 
+const RecipeGrid = ({recipes, setRecipes}) => {
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    const getRecipes = async () => {
+      try {
+          const res = await fetch(BASE_URL + "/recipes");
+          const data = await res.json();
 
-const RecipeGrid = () => {
+          if (!res.ok){
+            throw new Error(data.error);
+          }
+          setRecipes(data);
+
+      } catch (error){
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getRecipes();
+  }, [setRecipes]);
+  console.log(recipes);
 
   return (
+
+  <>
     <Grid
       templateColumns={{
         base: "1fr",
         md: "repeat(2, 1fr)",
         lg: "repeat(3, 1fr)",
       }}
-      gap={4}
+      gap={6}
     >
-    {RECIPES.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
+    {recipes.map((recipe) => (    //change recipes to RECIPES to access the library Test
+          <RecipeCard key={recipe.id} recipe={recipe} setRecipes={setRecipes}/>
       ))}  
     </Grid>
+
+    {isLoading && (
+      <Flex justifyContent={"center"}>
+        <Spinner size={"xl"}/>
+      </Flex>
+    )}
+
+    {!isLoading && recipes.length === 0 && (
+      <Flex justifyContent={"center"}>
+        <Text fontSize={"x-l"}>
+          <Text as={"span"} fontSize={"2x1"} fontWeight={"bold"} mr={2}>
+            Brew and Add your recipe bruv!!!
+          </Text>
+          No Recipes found
+        </Text>
+      </Flex>
+    )}
+  </>
   );
 };
 

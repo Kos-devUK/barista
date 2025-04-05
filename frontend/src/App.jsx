@@ -1,14 +1,16 @@
 import { Stack, Container,Text} from '@chakra-ui/react';
 import Navbar from './components/Navbar';
 import RecipeGrid from './components/RecipeGrid';
+import { useState } from 'react';
 
+export const BASE_URL = "http://192.168.1.169:5000/api";
 
 function App() {
-
+  const [recipes, setRecipes] = useState ([]);
     return (
       <Stack minH={"100vh"}>
         
-        <Navbar />
+        <Navbar setRecipes={setRecipes}/>
         
         <Container maxW={"1200px"} my={4} alignItems={"center"}>
           <Text 
@@ -20,10 +22,15 @@ function App() {
             <Text as={'span'} bgColor={'red.300'} bgClip={'text'}>Hey U Hipsta Barista</Text>
           </Text>
           
-          <RecipeGrid />
+          <RecipeGrid recipes={recipes} setRecipes={setRecipes}/>
         </Container>
       </Stack>
   );
 };
 
 export default App;
+
+// check this co toaster.create({
+//  title: "Toast Title",
+//  description: "Toast Description",
+// })

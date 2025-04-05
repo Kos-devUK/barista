@@ -35,7 +35,7 @@ def create_recipe():
         
         db.session.commit()
         
-        return jsonify({"msg":"recipe created"}), 201
+        return jsonify(new_recipe.to_json()), 201
     
     except Exception as e:
         db.session.rollback()
@@ -81,4 +81,4 @@ def update_recipe(id):
           
     except Exception as e:
         db.session.rollback()
-        return jsonify({"error":str(e)}), 500\
+        return jsonify({"error":str(e)}), 500

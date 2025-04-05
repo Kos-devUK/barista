@@ -1,53 +1,109 @@
-"use client";
-import { Button, Dialog, Field, Input, Portal, Stack } from "@chakra-ui/react";
-import { useRef } from "react";
+import { Button, Dialog, Field, Input} from "@chakra-ui/react";
+import { useState } from "react";
+// import { Toaster} from "@/components/ui/toaster";
+import { BASE_URL } from "@/App";
 
-const EditRecipe = () => {
-  const ref = useRef(null);
+function EditRecipe({setRecipes, recipe}){
 
-  return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>
-        <Button>Edit</Button>
-      </Dialog.Trigger>
-      <Portal>
-        <Dialog.Backdrop />
+  const [ isLoading, setIsLoading ] = useState(false);
+  
+  const[ inputs, setInputs] = useState({
+    name: recipe.name,
+    coffeegr: recipe.coffeegr,
+    watergr: recipe.watergr,
+    notes: recipe.notes,
+  }); // We are editing inputs for our database
+
+  // const toast = Toaster();
+
+  const handleEditRecipe = async (e) => {
+    e.preventDefault(); // Prevent page refresh
+    setIsLoading(true);
+    try {
+
+      const res = await fetch(BASE_URL + "/recipes/" + recipe.id, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inputs),
+      });
+
+      const data = await res.json();
+      if(!res.ok) {
+        throw new Error(data.error);
+      } // We stringify to communicate with the backend
+
+    setRecipes((prevRecipes) => prevRecipes.map((u) => (u.id === recipe.id ? data : u)));
+
+    }catch (error) {}
+    finally{
+      setIsLoading(false);
+    }
+  };
+
+return (
+<>
+
+  <Dialog.Root initialFocusEl={() => ref.current}>
+
+    <Dialog.Trigger asChild>
+      <Button>Edit</Button>
+    </Dialog.Trigger>
+
         <Dialog.Positioner>
-          <Dialog.Content initialFocusEl={ref}>
+          <Dialog.Content>
+
+          <form onSubmit={handleEditRecipe}>
             <Dialog.Header>
-              <Dialog.Title>Add your new recipe</Dialog.Title>
+              <Dialog.Title>Edit your recipe</Dialog.Title>
             </Dialog.Header>
+            
             <Dialog.Body pb="4">
-              <Stack gap="4">
+
                 <Field.Root>
                   <Field.Label>Coffee name</Field.Label>
-                  <Input placeholder="coffee name" />
+                  <Input placeholder="coffee name" value={inputs.name}
+                  onChange={(e) => setInputs((prev) => ({ ...prev, name: e.target.value }))}/>
                 </Field.Root>
+
                 <Field.Root>
                   <Field.Label>Coffee gr.</Field.Label>
-                  <Input ref={ref} placeholder="☕  coffee gr." />
+                  <Input placeholder="☕  coffee gr." value={inputs.coffeegr}
+                  onChange={(e) => setInputs((prev) => ({ ...prev, coffeegr: e.target.value }))}/>
                 </Field.Root>
+                
                 <Field.Root>
                   <Field.Label>Water gr.</Field.Label>
-                  <Input ref={ref} placeholder="💧 water gr." />
+                  <Input placeholder="💧 water gr." value={inputs.watergr}
+                  onChange={(e) => setInputs((prev) => ({ ...prev, watergr: e.target.value }))}/>
                 </Field.Root>
+
                 <Field.Root>
                   <Field.Label>Notes</Field.Label>
-                  <Input ref={ref} placeholder="📝 notes" />
+                  <Input placeholder="📝 notes" value={inputs.notes}
+                  onChange={(e) => setInputs((prev) => ({ ...prev, notes: e.target.value }))}/>
                 </Field.Root>
-              </Stack>
+
             </Dialog.Body>
+            
             <Dialog.Footer>
-              <Dialog.CloseTrigger asChild>
+              <Dialog.ActionTrigger asChild>
                 <Button variant="outline">Cancel</Button>
-              </Dialog.CloseTrigger>
-              <Button>Save</Button>
+              </Dialog.ActionTrigger>
+              <Dialog.ActionTrigger asChild>
+                <Button type="submit" isLoading={isLoading} // If the page isLoading the spinner spins
+                >Update</Button>
+              </Dialog.ActionTrigger>
             </Dialog.Footer>
+
+            </form>
           </Dialog.Content>
         </Dialog.Positioner>
-      </Portal>
-    </Dialog.Root>
-  );
+
+  </Dialog.Root>
+</>
+);
 };
 
 export default EditRecipe;

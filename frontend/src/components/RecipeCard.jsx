@@ -1,7 +1,23 @@
 import { Box, Button, Card, Flex, Heading } from "@chakra-ui/react";
 import EditRecipe from "./EditRecipe";
+import { BASE_URL } from "@/App";
 
-const RecipeCard = ({recipe}) => {
+const RecipeCard = ({recipe, setRecipes}) => {
+  const handleDeleteRecipe = async () =>{
+    try {
+      const res = await fetch(BASE_URL + "/recipes/" + recipe.id, {
+        method: "DELETE", 
+      });
+      const data = await res.json();
+      if(!res.ok){
+        throw new Error(data.error)
+      }
+      setRecipes((prevRecipes) => prevRecipes.filter((u) => u.id !== recipe.id))
+    } catch (error){
+
+    }
+  }
+  
   return (
     <Card.Root width="320px"
     backgroundImage="url('/beans.png')"
@@ -29,8 +45,8 @@ const RecipeCard = ({recipe}) => {
       </Card.Body>
       
       <Card.Footer justifyContent="flex-end">
-        <EditRecipe/>
-        <Button>Delete</Button>
+        <EditRecipe recipe={recipe} setRecipes={setRecipes}/>
+        <Button onClick={handleDeleteRecipe}>Delete</Button>
       </Card.Footer>
        
     </Card.Root>
