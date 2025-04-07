@@ -2,7 +2,6 @@ import { Flex, Grid, Spinner, Text } from "@chakra-ui/react";
 import RecipeCard from "./RecipeCard";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "@/App";
-// import { RECIPES } from "./libraryTest/library"; change code in line 44 
 
 const RecipeGrid = ({recipes, setRecipes}) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +38,7 @@ const RecipeGrid = ({recipes, setRecipes}) => {
       }}
       gap={6}
     >
-    {recipes.map((recipe) => (    //change recipes to RECIPES to access the library Test
+    {recipes.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} setRecipes={setRecipes}/>
       ))}  
     </Grid>
@@ -52,10 +51,11 @@ const RecipeGrid = ({recipes, setRecipes}) => {
 
     {!isLoading && recipes.length === 0 && (
       <Flex justifyContent={"center"}>
-        <Text fontSize={"x-l"}>
-          <Text as={"span"} fontSize={"2x1"} fontWeight={"bold"} mr={2}>
-            Brew and Add your recipe bruv!!!
+        <Text fontSize={"x-large"}>
+          <Text as={"span"} fontWeight={"bold"} mr={1}>
+            Brew your coffee and add your recipes 
           </Text>
+          <br />
           No Recipes found
         </Text>
       </Flex>

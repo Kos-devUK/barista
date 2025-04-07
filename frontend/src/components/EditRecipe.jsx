@@ -1,6 +1,6 @@
 import { Button, Dialog, Field, Input} from "@chakra-ui/react";
 import { useState } from "react";
-// import { Toaster} from "@/components/ui/toaster";
+import { Toaster, toaster } from "@/components/ui/toaster";
 import { BASE_URL } from "@/App";
 
 function EditRecipe({setRecipes, recipe}){
@@ -13,8 +13,6 @@ function EditRecipe({setRecipes, recipe}){
     watergr: recipe.watergr,
     notes: recipe.notes,
   }); // We are editing inputs for our database
-
-  // const toast = Toaster();
 
   const handleEditRecipe = async (e) => {
     e.preventDefault(); // Prevent page refresh
@@ -35,8 +33,15 @@ function EditRecipe({setRecipes, recipe}){
       } // We stringify to communicate with the backend
 
     setRecipes((prevRecipes) => prevRecipes.map((u) => (u.id === recipe.id ? data : u)));
-
-    }catch (error) {}
+    toaster.success({
+      title: "Recipe updated",
+      description: "you have updated your recipe",
+    });
+    }catch (error) {
+      toaster.error({
+        title: "An error occured",
+      });
+    }
     finally{
       setIsLoading(false);
     }
@@ -44,7 +49,7 @@ function EditRecipe({setRecipes, recipe}){
 
 return (
 <>
-
+  <Toaster/>
   <Dialog.Root initialFocusEl={() => ref.current}>
 
     <Dialog.Trigger asChild>
@@ -63,13 +68,13 @@ return (
 
                 <Field.Root>
                   <Field.Label>Coffee name</Field.Label>
-                  <Input placeholder="coffee name" value={inputs.name}
+                  <Input placeholder="☕ coffee name" value={inputs.name}
                   onChange={(e) => setInputs((prev) => ({ ...prev, name: e.target.value }))}/>
                 </Field.Root>
 
                 <Field.Root>
                   <Field.Label>Coffee gr.</Field.Label>
-                  <Input placeholder="☕  coffee gr." value={inputs.coffeegr}
+                  <Input placeholder="🫘  coffee gr." value={inputs.coffeegr}
                   onChange={(e) => setInputs((prev) => ({ ...prev, coffeegr: e.target.value }))}/>
                 </Field.Root>
                 

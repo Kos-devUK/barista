@@ -1,12 +1,10 @@
 import { Button, Dialog, Field, Input, useDisclosure} from "@chakra-ui/react";
 import { useState } from "react";
-// import { Toaster} from "@/components/ui/toaster";
+import { Toaster, toaster} from "@/components/ui/toaster";
 import { BASE_URL } from "@/App";
 
 const CreateRecipe = ({setRecipes}) => {
 
-// const { isOpen, onOpen, onClose } = useDisclosure();
-  
   const [ isLoading, setIsLoading ] = useState(false);
   
   const[ inputs, setInputs ] = useState({
@@ -16,7 +14,6 @@ const CreateRecipe = ({setRecipes}) => {
     notes: "",
   }); // We are creating inputs for our database
 
-  // const toast = Toaster();
 
   const handleCreateRecipe = async (e) => {
     e.preventDefault(); // Prevent page refresh
@@ -36,11 +33,18 @@ const CreateRecipe = ({setRecipes}) => {
         throw new Error(data.error);
       } // We stringify to communicate with the backend
 
-    // onclose();
+      toaster.success({
+        title: "Recipe created",
+        description: "Recipe created succefully",
+      })
     setRecipes((prevRecipes) => [...prevRecipes, data]);
 
     setInputs({name: "", coffeegr: "", watergr: "", notes: ""}); // To clear the inputs
-    }catch (error) {}
+    }catch (error) {
+      toaster.error({
+        title: "An error occured",
+      });
+    }
     finally{
       setIsLoading(false);
     }
@@ -48,7 +52,7 @@ const CreateRecipe = ({setRecipes}) => {
 
 return (
 <>
-
+  <Toaster />
   <Dialog.Root initialFocusEl={() => ref.current}>
 
     <Dialog.Trigger asChild>
@@ -74,13 +78,13 @@ return (
 
                 <Field.Root>
                   <Field.Label>Coffee name</Field.Label>
-                  <Input placeholder="coffee name" value={inputs.name}
+                  <Input placeholder="☕ coffee name" value={inputs.name}
                   onChange={(e) => setInputs({...inputs, name: e.target.value })}/>
                 </Field.Root>
 
                 <Field.Root>
                   <Field.Label>Coffee gr.</Field.Label>
-                  <Input placeholder="☕  coffee gr." value={inputs.coffeegr}
+                  <Input placeholder="🫘  coffee gr." value={inputs.coffeegr}
                   onChange={(e) => setInputs({...inputs, coffeegr: e.target.value })}/>
                 </Field.Root>
                 

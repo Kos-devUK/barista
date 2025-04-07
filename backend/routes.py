@@ -21,7 +21,7 @@ def create_recipe():
         # Validations    
         required_fields = ["name","coffeegr","watergr","notes"]
         for field in required_fields:
-            if field not in data:
+            if field not in data or not data.get(field):
                 return jsonify({"error":f'Missing required field: {field}'}), 400
             
         name = data.get("name")
