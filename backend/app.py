@@ -4,7 +4,7 @@ from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app) #comment CORS for production
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///recipes.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
