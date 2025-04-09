@@ -6,14 +6,15 @@ from models import Recipe
 
 # Get all Recipes
 @app.route("/api/recipes", methods=["GET"])
+
 def get_recipes():
     recipes = Recipe.query.all()
     result = [recipe.to_json() for recipe in recipes]
     return jsonify(result), 200
 
 # Create a recipe
-
 @app.route("/api/recipes",methods=["POST"])
+
 def create_recipe():
     try:
         data = request.json
@@ -42,8 +43,8 @@ def create_recipe():
         return jsonify({"error":str(e)}), 500
     
 # Delete recipes
-
 @app.route("/api/recipes/<int:id>" , methods=["DELETE"])
+
 def delete_recipe(id):
     try:
         recipe = Recipe.query.get(id)
@@ -61,7 +62,6 @@ def delete_recipe(id):
         return jsonify({"error":str(e)}), 500
     
 # Update recipes
-
 @app.route("/api/recipes/<int:id>" , methods=["PATCH"])
 
 def update_recipe(id):
