@@ -27,8 +27,8 @@ const Navbar = ({setRecipes}) => {
                 <Flex
                 alignItems={"center"}
                 gap={3}>
-                <Button onClick={toggleColorMode}>
-                    {colorMode === "light" ? <IoMoon /> : <LuSun size={20} />}
+                <Button onClick={toggleColorMode} width="50px" height="50px">
+                {colorMode === "light" ? <IoMoon /> : <LuSun/>}
                 </Button>
                 <CreateRecipe setRecipes={setRecipes}/>
                 </Flex>

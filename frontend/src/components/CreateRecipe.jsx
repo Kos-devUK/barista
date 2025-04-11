@@ -56,12 +56,11 @@ return (
   <Dialog.Root initialFocusEl={() => ref.current}>
 
     <Dialog.Trigger asChild>
-      <Button   
-        variant="unstyled"
-        bg="transparent"
+      <Button
         backgroundImage="url('/brewing.png')"
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
+        backgroundColor={'whiteAlpha.900'}
         width="50px" height="50px">
       </Button>
     </Dialog.Trigger>
