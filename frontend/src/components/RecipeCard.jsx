@@ -29,8 +29,8 @@ const RecipeCard = ({recipe, setRecipes}) => {
     <Card.Root width="320px"
     backgroundSize="cover"
     backgroundPosition="center"
-    color="whiteAlpha.950"
-    p={4}  
+    color='red.500'
+    p={4}
     >
       <Toaster/>
       <Card.Body gap="2">
