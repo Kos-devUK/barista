@@ -1,3 +1,4 @@
+## To run the application
 From the terminal run the backend (to initialise the database)
 directory -> barista/backend
 activate the Virtual ENViroment -> source venv/bin/activate
